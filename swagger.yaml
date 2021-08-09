@@ -1,0 +1,261 @@
+# Copyright 2017 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+swagger: '2.0'
+host: "first-admin-project-288008.appspot.com"
+info:
+  title: Engage Manager Zeta v2
+  description: Engage Manager Zeta API
+  termsOfService: 'https://engagemanager.com/'
+  contact:
+    name: エンゲージマネージャー：instagram/twitterアカウントの運用/分析ツール
+    url: 'https://engagemanager.tribalmedia.co.jp/'
+    email: ml-em-monitor@tribalmedia.co.jp
+  version: v1
+schemes:
+  - "https"
+paths:
+  "/welcome":
+    get:
+      description: "Get the airport name for a given IATA code."
+      operationId: "welcome"
+      responses:
+        200:
+          description: "Success."
+          examples:
+            application/json:
+              id: 2
+              name: カモノハシ
+              file_name: platypus.jpg
+              memo: memo
+        400:
+          description: "The IATA code is invalid or missing."
+  '/account/{sns_account_id}/post/draft':
+    get:
+      operationId: postDraft
+      tags:
+        - 投稿
+      summary: 投稿/作成中の投稿
+      description: 投稿/作成中の投稿画面で表示するデータを返します
+      parameters:
+        - in: path
+          required: true
+          name: sns_account_id
+          description: SNSアカウントID
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A JSON array of PostDraft model
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PostResponse'
+          examples:
+            application/json:
+              data:
+                - id: 12345
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: ''
+                  reserve_at: null
+                  posted_at: null
+                  media_id_list:
+                    - 123456789
+                    - 234567890
+                    - 345678901
+                    - 456789012
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: ''
+                  objective:
+                    - 投稿目的名
+                    - 投稿目的名投稿目的名
+                  category:
+                    - カテゴリー名
+                    - カテゴリー名カテゴリ
+                    - カテゴリー名カテゴリ
+                    - カテゴリー名カ
+                  status: STATUS_NOT_SET
+                  workflow: WORKFLOW_APPLY
+                  created_at: '2021-01-08T14:12:00'
+                  updated_at: '2021-01-08T14:12:00'
+                - id: 12344
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: ''
+                  reserve_at: null
+                  posted_at: null
+                  media_id_list:
+                    - 123456780
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: ''
+                  objective:
+                    - 投稿目的名
+                  category:
+                    - カテゴリー名
+                  status: STATUS_NOT_SET
+                  workflow: WORKFLOW_APPLY
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+                - id: 12343
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: ''
+                  reserve_at: null
+                  posted_at: null
+                  media_id_list: []
+                  body: ''
+                  permalink: ''
+                  objective: []
+                  category: []
+                  status: STATUS_NOT_SET
+                  workflow: WORKFLOW_NOT_SET
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+                - id: 12342
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: ''
+                  reserve_at: null
+                  posted_at: null
+                  media_id_list:
+                    - 123456781
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: ''
+                  objective:
+                    - 投稿目的名
+                  category:
+                    - カテゴリー名
+                  status: STATUS_NOT_SET
+                  workflow: WORKFLOW_APPLY
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+                - id: 12341
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: ''
+                  reserve_at: null
+                  posted_at: null
+                  media_id_list:
+                    - 123456781
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: ''
+                  objective:
+                    - 投稿目的名
+                  category:
+                    - カテゴリー名
+                  status: STATUS_NOT_SET
+                  workflow: WORKFLOW_APPLY
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: SNS Account ID Not Found
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+definitions:
+  PostResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Post ID
+      title:
+        type: string
+        maxLength: 255
+        description: 投稿タイトル
+      contributors_name:
+        type: string
+        maxLength: 255
+        description: 投稿作成者名
+      executor_name:
+        type: string
+        maxLength: 255
+        description: 投稿実行者名
+      reserve_at:
+        type: string
+        format: date-time
+        description: 公開予定日時
+      posted_at:
+        type: string
+        format: date-time
+        description: 投稿日時
+      media_id_list:
+        type: array
+        maxItems: 4
+        description: 投稿メディアID
+        items:
+          type: integer
+          format: int64
+      body:
+        type: string
+        description: 投稿本文
+      permalink:
+        type: string
+        description: 公式で見るためのURL
+      objective:
+        type: array
+        maxItems: 100
+        description: 投稿目的
+        items:
+          type: string
+          maxLength: 100
+      category:
+        type: array
+        maxItems: 100
+        description: カテゴリ
+        items:
+          type: string
+          maxLength: 100
+      status:
+        description: |
+          ステータス
+          * STATUS_NOT_SET: 作成中
+          * STATUS_COMPLETE: 作成完了
+          * STATUS_HISTORY: 投稿済み
+          * STATUS_OFFICIAL: 公式サービスからの投稿
+        type: string
+        enum:
+          - STATUS_NOT_SET
+          - STATUS_COMPLETE
+          - STATUS_HISTORY
+          - STATUS_OFFICIAL
+      workflow:
+        description: |
+          ワークフロー
+          * WORKFLOW_NOT_SET: 未設定
+          * WORKFLOW_APPLY: 申請中
+          * WORKFLOW_APPROVAL_COMPLETE: 承認完了
+        type: string
+        enum:
+          - WORKFLOW_NOT_SET
+          - WORKFLOW_APPLY
+          - WORKFLOW_APPROVAL_COMPLETE
+      created_at:
+        type: string
+        format: date-time
+        description: 作成日時
+      updated_at:
+        type: string
+        format: date-time
+        description: 更新日時
