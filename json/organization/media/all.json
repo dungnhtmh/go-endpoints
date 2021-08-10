@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "favorite": false,
+    "upload_at": "2021-02-12T11:50:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 2,
+    "favorite": true,
+    "upload_at": "2021-02-12T11:40:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 3,
+    "favorite": false,
+    "upload_at": "2021-01-30T10:00:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 4,
+    "favorite": false,
+    "upload_at": "2021-01-30T09:50:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 5,
+    "favorite": false,
+    "upload_at": "2021-01-29T12:00:00",
+    "media_type": "MEDIA_TYPE_VIDEO",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 6,
+    "favorite": false,
+    "upload_at": "2021-01-29T11:50:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 7,
+    "favorite": false,
+    "upload_at": "2021-01-29T11:40:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 8,
+    "favorite": false,
+    "upload_at": "2021-01-29T11:30:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 9,
+    "favorite": false,
+    "upload_at": "2021-01-29T11:20:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 10,
+    "favorite": false,
+    "upload_at": "2021-01-29T11:10:00",
+    "media_type": "MEDIA_TYPE_VIDEO",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 11,
+    "favorite": false,
+    "upload_at": "2021-01-29T11:00:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 12,
+    "favorite": false,
+    "upload_at": "2021-01-29T10:50:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 13,
+    "favorite": false,
+    "upload_at": "2021-01-29T10:40:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 14,
+    "favorite": false,
+    "upload_at": "2021-01-29T10:30:00",
+    "media_type": "MEDIA_TYPE_IMG",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  },
+  {
+    "id": 15,
+    "favorite": false,
+    "upload_at": "2021-01-29T10:20:00",
+    "media_type": "MEDIA_TYPE_VIDEO",
+    "usage_status": "MEDIA_USAGE_STATUS_NOT_USED"
+  }
+]

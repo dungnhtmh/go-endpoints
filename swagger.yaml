@@ -26,21 +26,52 @@ info:
 schemes:
   - "https"
 paths:
-  "/welcome":
+  '/account/{sns_account_id}/post/detail/{post_id}':
     get:
-      description: "Get the airport name for a given IATA code."
-      operationId: "welcome"
+      operationId: postDetail
+      tags:
+        - 投稿
+      summary: 投稿/投稿詳細
+      description: 投稿/投稿作成画面や、手動投稿支援画面で使用するデータを返します
+      parameters:
+        - in: path
+          required: true
+          name: sns_account_id
+          description: SNSアカウントID
+          type: integer
+        - in: path
+          required: true
+          name: post_id
+          description: 投稿ID
+          type: integer
+      produces:
+        - application/json
       responses:
-        200:
-          description: "Success."
+        '200':
+          description: A JSON array of PostDraft model
+          schema:
+            $ref: '#/definitions/PostResponse'
           examples:
             application/json:
-              id: 2
-              name: カモノハシ
-              file_name: platypus.jpg
-              memo: memo
-        400:
-          description: "The IATA code is invalid or missing."
+              id: 12344
+              title: '名称未設定 - 2021/03/15 10:30'
+              contributors_name: 投稿者太郎
+              executor_name: ''
+              reserve_at: null
+              posted_at: null
+              media_id_list:
+                - 123456780
+              body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+              permalink: ''
+              objective:
+                - 投稿目的名
+              category:
+                - カテゴリー名
+              status: STATUS_NOT_SET
+              workflow: WORKFLOW_APPLY
+              created_at: '2021-01-07T13:12:00'
+              updated_at: '2021-01-07T13:12:00'
+
   '/account/{sns_account_id}/post/draft':
     get:
       operationId: postDraft
@@ -160,6 +191,792 @@ paths:
                   workflow: WORKFLOW_APPLY
                   created_at: '2021-01-07T13:12:00'
                   updated_at: '2021-01-07T13:12:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: SNS Account ID Not Found
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+  '/account/{sns_account_id}/post/reserve':
+    get:
+      operationId: postReserve
+      tags:
+        - 投稿
+      summary: 投稿/公開待機中の投稿
+      description: 投稿/公開待機中の投稿画面で表示するデータを返します
+      parameters:
+        - in: path
+          required: true
+          name: sns_account_id
+          description: SNSアカウントID
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A JSON array of PostDraft model
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PostResponse'
+          examples:
+            application/json:
+              data:
+                - id: 12345
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: 投稿者太郎
+                  reserve_at: '2021-03-18T12:12:00'
+                  posted_at: null
+                  media_id_list:
+                    - 123456789
+                    - 234567890
+                    - 345678901
+                    - 456789012
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: ''
+                  objective:
+                    - 投稿目的名
+                    - 投稿目的名投稿目的名
+                  category:
+                    - カテゴリー名
+                    - カテゴリー名カテゴリ
+                    - カテゴリー名カテゴリ
+                    - カテゴリー名カ
+                  status: STATUS_COMPLETE
+                  workflow: WORKFLOW_NOT_SET
+                  created_at: '2021-01-08T14:12:00'
+                  updated_at: '2021-01-08T14:12:00'
+                - id: 12344
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: 投稿者太郎
+                  reserve_at: '2021-03-18T17:30:00'
+                  posted_at: null
+                  media_id_list:
+                    - 123456780
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: ''
+                  objective:
+                    - 投稿目的名
+                  category:
+                    - カテゴリー名
+                  status: STATUS_COMPLETE
+                  workflow: WORKFLOW_NOT_SET
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+                - id: 12341
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: 投稿者太郎
+                  reserve_at: null
+                  posted_at: null
+                  media_id_list:
+                    - 123456781
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: ''
+                  objective:
+                    - 投稿目的名
+                  category:
+                    - カテゴリー名
+                  status: STATUS_COMPLETE
+                  workflow: WORKFLOW_APPROVAL_COMPLETE
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+                - id: 12342
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: 投稿者太郎
+                  reserve_at: null
+                  posted_at: null
+                  media_id_list:
+                    - 123456781
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: ''
+                  objective: []
+                  category: []
+                  status: STATUS_COMPLETE
+                  workflow: WORKFLOW_NOT_SET
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+                - id: 12341
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: 投稿者太郎
+                  reserve_at: null
+                  posted_at: null
+                  media_id_list:
+                    - 123456781
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: ''
+                  objective:
+                    - 投稿目的名
+                  category:
+                    - カテゴリー名
+                  status: STATUS_COMPLETE
+                  workflow: WORKFLOW_APPROVAL_COMPLETE
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: SNS Account ID Not Found
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+
+  '/account/{sns_account_id}/post/history':
+    get:
+      operationId: postHistory
+      tags:
+        - 投稿
+      summary: 投稿/投稿履歴
+      description: 投稿/投稿履歴画面で表示するデータを返します
+      parameters:
+        - in: path
+          required: true
+          name: sns_account_id
+          description: SNSアカウントID
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A JSON array of PostDraft model
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PostResponse'
+          examples:
+            application/json:
+              data:
+                - id: 12345
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: 投稿者太郎
+                  reserve_at: '2021-03-20T12:12:00'
+                  posted_at: '2021-03-20T12:12:00'
+                  media_id_list:
+                    - 123456789
+                    - 234567890
+                    - 345678901
+                    - 456789012
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: 'https://example.com/12345'
+                  objective:
+                    - 投稿目的名
+                    - 投稿目的名投稿目的名
+                  category:
+                    - カテゴリー名
+                    - カテゴリー名カテゴリ
+                    - カテゴリー名カテゴリ
+                    - カテゴリー名カ
+                  status: STATUS_HISTORY
+                  workflow: WORKFLOW_NOT_SET
+                  created_at: '2021-01-08T14:12:00'
+                  updated_at: '2021-01-08T14:12:00'
+                - id: 12344
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: 投稿者太郎
+                  reserve_at: '2021-03-20T17:30:00'
+                  posted_at: '2021-03-20T17:30:00'
+                  media_id_list:
+                    - 123456780
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: 'https://example.com/12344'
+                  objective: []
+                  category: []
+                  status: STATUS_HISTORY
+                  workflow: WORKFLOW_NOT_SET
+                  created_at: '2021-01-07T14:12:00'
+                  updated_at: '2021-01-07T14:12:00'
+                - id: 12343
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: 投稿者太郎
+                  reserve_at: '2021-03-20T17:30:00'
+                  posted_at: '2021-03-20T17:30:00'
+                  media_id_list: []
+                  body: ''
+                  permalink: 'https://example.com/12343'
+                  objective:
+                    - 投稿目的名
+                  category:
+                    - カテゴリー名
+                  status: STATUS_HISTORY
+                  workflow: WORKFLOW_NOT_SET
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+                - id: 12342
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: 投稿者太郎
+                  executor_name: 投稿者太郎
+                  reserve_at: '2021-03-18T12:30:00'
+                  posted_at: '2021-03-18T12:30:00'
+                  media_id_list:
+                    - 123456781
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: 'https://example.com/12342'
+                  objective:
+                    - 投稿目的名
+                  category:
+                    - カテゴリー名
+                  status: STATUS_HISTORY
+                  workflow: WORKFLOW_NOT_SET
+                  created_at: '2021-01-07T13:12:00'
+                  updated_at: '2021-01-07T13:12:00'
+                - id: 12341
+                  title: '名称未設定 - 2021/03/15 10:30'
+                  contributors_name: ''
+                  executor_name: ''
+                  reserve_at: null
+                  posted_at: '2021-03-03T12:30:00'
+                  media_id_list:
+                    - 123456781
+                  body: '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\n\n１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０\nMAZDA公式Instagramでは、皆さんの素敵な写真をご紹介します。\n\n#MAZDA #マツダ #Atenza #MAZDA2 #MAZDA3 #MAZDA6\n#自動車 #日本車 #クルマ #ドライブ #ドライブ日和'
+                  permalink: 'https://example.com/12341'
+                  objective: []
+                  category: []
+                  status: STATUS_OFFICIAL
+                  workflow: WORKFLOW_NOT_SET
+                  created_at: '2021-03-03T12:30:00'
+                  updated_at: '2021-03-03T12:30:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: SNS Account ID Not Found
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+  '/organization/{organization_id}/media/list':
+    get:
+      operationId: mediaList
+      tags:
+        - メディア
+      summary: メディア/メディアリスト
+      description: メディア/メディアリスト画面で表示するデータを返します
+      parameters:
+        - in: path
+          required: true
+          name: organization_id
+          description: 組織ID
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A JSON array of PostDraft model
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      format: int64
+                      description: Media ID
+                    favorite:
+                      type: boolean
+                      description: お気に入り
+                    upload_at:
+                      type: string
+                      format: date-time
+                      description: アップロード日時
+                    media_type:
+                      description: |
+                        メディアタイプ
+                        * MEDIA_TYPE_IMG: 画像
+                        * MEDIA_TYPE_VIDEO: 動画
+                      type: string
+                      enum:
+                        - MEDIA_TYPE_IMG
+                        - MEDIA_TYPE_VIDEO
+                    usage_status:
+                      description: |
+                        利用状況
+                        * MEDIA_USAGE_STATUS_NOT_USED: 未使用
+                        * MEDIA_USAGE_STATUS_USED: 使用済み
+                      type: string
+                      enum:
+                        - MEDIA_USAGE_STATUS_NOT_USED
+                        - MEDIA_USAGE_STATUS_USED
+          examples:
+            application/json:
+              data:
+                - id: 1
+                  favorite: false
+                  upload_at: '2021-02-12T11:50:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 2
+                  favorite: true
+                  upload_at: '2021-02-12T11:40:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 3
+                  favorite: false
+                  upload_at: '2021-01-30T10:00:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 4
+                  favorite: false
+                  upload_at: '2021-01-30T09:50:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 5
+                  favorite: false
+                  upload_at: '2021-01-29T12:00:00'
+                  media_type: MEDIA_TYPE_VIDEO
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 6
+                  favorite: false
+                  upload_at: '2021-01-29T11:50:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 7
+                  favorite: false
+                  upload_at: '2021-01-29T11:40:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 8
+                  favorite: false
+                  upload_at: '2021-01-29T11:30:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 9
+                  favorite: false
+                  upload_at: '2021-01-29T11:20:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 10
+                  favorite: false
+                  upload_at: '2021-01-29T11:10:00'
+                  media_type: MEDIA_TYPE_VIDEO
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 11
+                  favorite: false
+                  upload_at: '2021-01-29T11:00:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 12
+                  favorite: false
+                  upload_at: '2021-01-29T10:50:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 13
+                  favorite: false
+                  upload_at: '2021-01-29T10:40:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 14
+                  favorite: false
+                  upload_at: '2021-01-29T10:30:00'
+                  media_type: MEDIA_TYPE_IMG
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+                - id: 15
+                  favorite: false
+                  upload_at: '2021-01-29T10:20:00'
+                  media_type: MEDIA_TYPE_VIDEO
+                  usage_status: MEDIA_USAGE_STATUS_NOT_USED
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: SNS Account ID Not Found
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+  '/organization/{organization_id}/media/detail/{media_id}':
+    get:
+      operationId: mediaDetail
+      tags:
+        - メディア
+      summary: メディア/メディア詳細
+      description: メディア/メディア詳細で表示するデータを返します
+      parameters:
+        - in: path
+          required: true
+          name: organization_id
+          description: 企業ID
+          type: integer
+        - in: path
+          required: true
+          name: media_id
+          description: メディアID
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A JSON array of PostDraft model
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                format: int64
+                description: Media ID
+              name:
+                type: string
+                maxLength: 255
+                description: メディア名
+              file_name:
+                type: string
+                maxLength: 255
+                description: ファイル名
+              memo:
+                type: string
+                maxLength: 2000
+                description: メモ
+              favorite:
+                type: boolean
+                description: お気に入り
+              is_original:
+                type: boolean
+                description: オリジナルフラグ
+              upload_at:
+                type: string
+                format: date-time
+                description: アップロード日時
+              media_type:
+                description: |
+                  メディアタイプ
+                  * MEDIA_TYPE_IMG: 画像
+                  * MEDIA_TYPE_VIDEO: 動画
+                type: string
+                enum:
+                  - MEDIA_TYPE_IMG
+                  - MEDIA_TYPE_VIDEO
+              usage_status:
+                description: |
+                  利用状況
+                  * MEDIA_USAGE_STATUS_NOT_USED: 未使用
+                  * MEDIA_USAGE_STATUS_USED: 使用済み
+                type: string
+                enum:
+                  - MEDIA_USAGE_STATUS_NOT_USED
+                  - MEDIA_USAGE_STATUS_USED
+              uploader_id:
+                type: integer
+                format: int64
+                description: Uploader ID
+              uploader_name:
+                type: string
+                maxLength: 255
+                description: Uploader Name
+              uploader_comment:
+                type: string
+                maxLength: 2000
+                description: Uploader Comment
+              labels:
+                type: array
+                maxItems: 100
+                description: ラベル
+                items:
+                  type: string
+                  maxLength: 100
+              original_media_id:
+                type: integer
+                format: int64
+                description: オリジナルメディアID
+              derivation:
+                type: array
+                maxItems: 100
+                description: 派生メディアIDリスト
+                items:
+                  type: integer
+                  format: int64
+          examples:
+            application/json:
+              id: 2
+              name: カモノハシ
+              file_name: platypus.jpg
+              memo: memo
+              favorite: true
+              is_original: true
+              upload_at: '2021-02-12T11:40:00'
+              media_type: MEDIA_TYPE_IMG
+              usage_status: MEDIA_USAGE_STATUS_NOT_USED
+              uploader_id: 1
+              uploader_name: 広報部のアップロード
+              labels:
+                - ラベル名a
+              original_media_id: 1
+              derivation:
+                - 3
+                - 4
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: SNS Account ID Not Found
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+  '/organization/{organization_id}/media/image/{media_id}':
+    get:
+      operationId: mediaImage
+      tags:
+        - メディア
+      summary: メディア/画像メディア
+      description: メディア/画像メディアを返します
+      parameters:
+        - in: path
+          required: true
+          name: organization_id
+          description: 組織ID
+          type: integer
+        - in: path
+          required: true
+          name: media_id
+          description: メディアID
+          type: integer
+      responses:
+        '200':
+          description: 画像
+          schema:
+            type: string
+            format: binary
+  '/organization/{organization_id}/media/video/{media_id}':
+    get:
+      operationId: mediaVideo
+      tags:
+        - メディア
+      summary: メディア/動画メディア
+      description: メディア/動画メディアを返します
+      parameters:
+        - in: path
+          required: true
+          name: organization_id
+          description: 組織ID
+          type: integer
+        - in: path
+          required: true
+          name: media_id
+          description: メディアID
+          type: integer
+      responses:
+        '200':
+          description: 動画
+          schema:
+            type: string
+            format: binary
+  '/organization/{organization_id}/media/uploader/list':
+    get:
+      operationId: mediaUploaderList
+      tags:
+        - メディア
+        - アップローダー
+      summary: メディア/アップローダーリスト
+      description: メディア/アップローダーURLの発行画面で表示するデータを返します
+      parameters:
+        - in: path
+          name: organization_id
+          required: true
+          description: 組織ID
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A JSON array of Uploader model
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      format: int64
+                      description: Media ID
+                    uploader_name:
+                      type: string
+                      description: アップローダー名
+                    uploader_comment:
+                      type: string
+                      description: アップローダーコメント
+                    expired_at:
+                      type: string
+                      format: date-time
+                      description: 有効期限
+                    status:
+                      description: |
+                        アップローダーステータス
+                        * STATUS_ACTIVE: 有効
+                        * STATUS_PAUSE: 停止中
+                        * STATUS_EXPIRED: 期限ぎり
+                      type: string
+                      enum:
+                        - STATUS_ACTIVE
+                        - STATUS_PAUSE
+                        - STATUS_EXPIRED
+                    invitee_list:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            format: int64
+                            description: 招待者ID
+                          email:
+                            type: string
+                            description: メールアドレス
+                          token:
+                            type: string
+                            description: アップローダー招待者トークン
+                          is_open:
+                            type: boolean
+                            description: オープンフラグ
+          examples:
+            application/json:
+              data:
+                - id: 123
+                  uploader_name: '広報部用'
+                  uploader_comment: '広報部から素材を支給してもらう際に利用するアップローダー。広報部から素材を支給してもらう際に利用するアップローダー。広報部から素材を支給してもらう際に利用するアップローダー。広報部から素材を支給してもらう際に利用するアップローダー。'
+                  expired_at: '2021-07-15T23:59:59Z'
+                  status: STATUS_ACTIVE
+                  invitee_list:
+                    - id: 1
+                      email: 'yamada@abc.co.jp'
+                      token: 'xxx'
+                      is_open: true
+                    - id: 2
+                      email: 'sato@abc.co.jp'
+                      token: 'xxx'
+                      is_open: false
+                    - id: 3
+                      email: 'suzuki@abc.co.jp'
+                      token: 'xxx'
+                      is_open: true
+                - id: 124
+                  uploader_name: 'デザイナー高橋さん'
+                  uploader_comment: 'デザイナー高橋さんから素材を支給してもらう際に利用するアップローダー。デザイナー高橋さんから素材を支給してもらう際に利用するアップローダー。デザイナー高橋さんから素材を支給してもらう際に利用するアップローダー。デザイナー高橋さんから素材を支給してもらう際に利用するアップローダー。'
+                  expired_at: '2021-07-15T23:59:59Z'
+                  status: STATUS_ACTIVE
+                  invitee_list:
+                    - id: 4
+                      email: 'takahashi@abc.co.jp'
+                      token: 'xxx'
+                      is_open: true
+                - id: 125
+                  uploader_name: 'アップローダー名'
+                  uploader_comment: 'コメント'
+                  expired_at: '2021-07-15T23:59:59Z'
+                  status: STATUS_PAUSE
+                  invitee_list:
+                    - id: 5
+                      email: 'uploader1@abc.co.jp'
+                      token: 'xxx'
+                      is_open: true
+                - id: 126
+                  uploader_name: 'アップローダー名'
+                  uploader_comment: 'コメント'
+                  expired_at: '2021-07-07T23:59:59Z'
+                  status: STATUS_EXPIRED
+                  invitee_list:
+                    - id: 6
+                      email: 'uploader2@abc.co.jp'
+                      token: 'xxx'
+                      is_open: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: SNS Account ID Not Found
+        '408':
+          description: Request Timeout
+        '500':
+          description: Internal Server Error
+  '/organization/{organization_id}/media/uploader/{uploader_token}':
+    get:
+      operationId: mediaUploader
+      tags:
+        - メディア
+        - アップローダー
+      summary: メディア/アップローダー
+      description: メディア/素材アップローダー画面で表示するデータを返します
+      parameters:
+        - in: path
+          name: organization_id
+          required: true
+          description: 組織ID
+          type: integer
+        - in: path
+          name: uploader_token
+          required: true
+          description: アップローダーtoken
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A JSON array of Uploader model
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    description: アップローダーID
+                  uploader_name:
+                    type: string
+                    description: アップローダー名
+                  uploader_comment:
+                    type: string
+                    description: アップローダーコメント
+                  expired_at:
+                    type: string
+                    format: date-time
+                    description: 有効期限
+                  is_open:
+                    type: boolean
+                    description: オープンフラグ
+          examples:
+            application/json:
+              data:
+                id: 123
+                uploader_name: '広報部用'
+                uploader_comment: '広報部から素材を支給してもらう際に利用するアップローダー。広報部から素材を支給してもらう際に利用するアップローダー。広報部から素材を支給してもらう際に利用するアップローダー。広報部から素材を支給してもらう際に利用するアップローダー。'
+                expired_at: '2021-07-15T23:59:59Z'
+                is_open: true
         '400':
           description: Bad Request
         '401':

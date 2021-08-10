@@ -1,0 +1,74 @@
+[
+  {
+    "id": 123,
+    "uploader_name": "広報部用",
+    "uploader_comment": "広報部から素材を支給してもらう際に利用するアップローダー。広報部から素材を支給してもらう際に利用するアップローダー。広報部から素材を支給してもらう際に利用するアップローダー。広報部から素材を支給してもらう際に利用するアップローダー。",
+    "expired_at": "2021-07-15T23:59:59Z",
+    "status": "STATUS_ACTIVE",
+    "invitee_list": [
+      {
+        "id": 1,
+        "email": "yamada@abc.co.jp",
+        "token": "xxx",
+        "is_open": true
+      },
+      {
+        "id": 2,
+        "email": "sato@abc.co.jp",
+        "token": "xxx",
+        "is_open": false
+      },
+      {
+        "id": 3,
+        "email": "suzuki@abc.co.jp",
+        "token": "xxx",
+        "is_open": true
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "uploader_name": "デザイナー高橋さん",
+    "uploader_comment": "デザイナー高橋さんから素材を支給してもらう際に利用するアップローダー。デザイナー高橋さんから素材を支給してもらう際に利用するアップローダー。デザイナー高橋さんから素材を支給してもらう際に利用するアップローダー。デザイナー高橋さんから素材を支給してもらう際に利用するアップローダー。",
+    "expired_at": "2021-07-15T23:59:59Z",
+    "status": "STATUS_ACTIVE",
+    "invitee_list": [
+      {
+        "id": 4,
+        "email": "takahashi@abc.co.jp",
+        "token": "xxx",
+        "is_open": true
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "uploader_name": "アップローダー名",
+    "uploader_comment": "コメント",
+    "expired_at": "2021-07-15T23:59:59Z",
+    "status": "STATUS_PAUSE",
+    "invitee_list": [
+      {
+        "id": 5,
+        "email": "uploader1@abc.co.jp",
+        "token": "xxx",
+        "is_open": true
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "uploader_name": "アップローダー名",
+    "uploader_comment": "コメント",
+    "expired_at": "2021-07-07T23:59:59Z",
+    "status": "STATUS_EXPIRED",
+    "invitee_list": [
+      {
+        "id": 6,
+        "email": "uploader2@abc.co.jp",
+        "token": "xxx",
+        "is_open": true
+      }
+    ]
+  }
+]

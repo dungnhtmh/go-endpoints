@@ -1,0 +1,21 @@
+{
+  "id": 2,
+  "name": "カモノハシ",
+  "file_name": "platypus.jpg",
+  "memo": "memo",
+  "favorite": true,
+  "is_original": true,
+  "upload_at": "2021-02-12T11:40:00",
+  "media_type": "MEDIA_TYPE_IMG",
+  "usage_status": "MEDIA_USAGE_STATUS_NOT_USED",
+  "uploader_id": 1,
+  "uploader_name": "広報部のアップロード",
+  "labels": [
+    "ラベル名a"
+  ],
+  "original_media_id": 1,
+  "derivation": [
+    3,
+    4
+  ]
+}
